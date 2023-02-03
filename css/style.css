@@ -1,0 +1,53 @@
+*{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.main{
+  width: 100%;
+  height: 100vh;
+  padding: 20px;
+  border: 3px solid rgb(224, 1, 1);
+  display: grid;
+  place-items: center;
+}
+#compras{
+  width: 80%;
+
+  margin: auto;
+  padding: 30px;
+  /* height: 100%; */
+  border: 4px solid rgb(218, 216, 216);
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+
+}
+.img{
+  width: 150px;
+  height: 150px;
+}
+.codigo{
+  display: inline;
+ 
+}
+.article{
+  border: 2px solid rgb(211, 211, 211);
+  text-align: center;
+}
+.item{
+display: flex;
+justify-content: space-around;
+/* text-align: center; */
+}
+.lista{
+  width: 60%;
+  margin: auto;
+  border: 3px solid pink;
+
+}
+.agregar{
+  border: none;
+  padding: 5px 10px;
+}
