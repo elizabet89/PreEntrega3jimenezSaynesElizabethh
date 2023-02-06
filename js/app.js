@@ -94,23 +94,17 @@ let tennis=[
      
       let posicion=tennis.findIndex((item)=>item.id === e.target.dataset.id);
 
-      // if(posicion !== -1){
+      if(posicion !== -1){
        
         let indice=coprasDelCarrito.findIndex((elem)=>elem.id === e.target.dataset.id )
+
          
   
-
-            if(indice === -1){
-              coprasDelCarrito.push(tennis[posicion])
-              console
-       
-          }else{
-            coprasDelCarrito[indice].cantidad++
-              
-           }
+            indice === -1 ? coprasDelCarrito.push(tennis[posicion]):  coprasDelCarrito[indice].cantidad+=1
+           
           
             localStorage.setItem("productos",JSON.stringify(coprasDelCarrito));
-    // }
+    }
     
       pintarCarrito(e);
 
