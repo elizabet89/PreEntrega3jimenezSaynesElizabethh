@@ -1,7 +1,3 @@
-
-
-//=================================================
-//=================================================
 let template=document.getElementById("template");
 let compras=document.getElementById("compras");
 
@@ -17,7 +13,7 @@ let tennis=[
     img:"./img/tennis-01.jpg",
     nombre:"Nike",
     precio:1200,
-    cantidad:0
+    cantidad:1
   },
   {
     id:"0A2",
@@ -56,9 +52,8 @@ let tennis=[
   }
 
 ];
-  //===============================================================0
 
-    tennis.forEach((item) => {
+tennis.forEach((item) => {
 
   let clone=template.content.cloneNode(true);
       clone.querySelector(".img").src=item.img;
@@ -72,79 +67,69 @@ let tennis=[
       compras.appendChild(fragment);
 
 
-      
-    document.addEventListener("click",(e)=>{
+      document.addEventListener("click",(e)=>{
  
-      if(e.target.matches(".agregar")){
-      agregarAlCarrito(e);
-      }else if(e.target.matches(".quitar")){
-        quitar(e)
-      }
-  
-  });
+        if(e.target.matches(".agregar")){
+        agregarAlCarrito(e);
+        }else if(e.target.matches(".quitar")){
+          quitar(e)
+        }
+    
+    });
 
+    let botones=document.querySelectorAll(".agregar")
+    let coprasDelCarrito=[];
 
-      let botones=document.querySelectorAll(".agregar")
+    let agregarAlCarrito=(e)=>{
 
-      let coprasDelCarrito=[];
-   
-      let agregarAlCarrito=(e)=>{
-
-   
-     
       let posicion=tennis.findIndex((item)=>item.id === e.target.dataset.id);
-
-      if(posicion !== -1){
-       
+      
         let indice=coprasDelCarrito.findIndex((elem)=>elem.id === e.target.dataset.id )
-
-         
-  
+        console.log(indice)
             indice === -1 ? coprasDelCarrito.push(tennis[posicion]):  coprasDelCarrito[indice].cantidad+=1
-           
-          
+            console.log(tennis[posicion])
+        
             localStorage.setItem("productos",JSON.stringify(coprasDelCarrito));
-    }
+            pintarCarrito(e);
     
-      pintarCarrito(e);
+    
 
       }
-     
-   
+    
       let pintarCarrito=(e)=>{
+        carrito.textContent=""
         
-        
-            carritoDeCompras=JSON.parse(localStorage.getItem("productos"))
-          console.log(carritoDeCompras)
-         
+        carritoDeCompras=JSON.parse(localStorage.getItem("productos"))
+        console.log(carritoDeCompras)
+     
 
-            carritoDeCompras.forEach((ite)=>{
-            const clone=template2.content.cloneNode(true);
-            clone.querySelector(".title").textContent=ite.nombre;
-            clone.querySelector(".cant").textContent=ite.cantidad;
-            clone.querySelector(".total").textContent=ite.precio*ite.cantidad;
-            clone.querySelector(".quitar").dataset.id=ite.id;
-            clone.querySelector(".agregar").dataset.id=ite.id;
-    
-            fragment.appendChild(clone);
-    
+        carritoDeCompras.forEach((ite)=>{
+        const clone=template2.content.cloneNode(true);
+        clone.querySelector(".title").textContent=ite.nombre;
+        clone.querySelector(".cant").textContent=ite.cantidad;
+        clone.querySelector(".total").textContent=ite.precio*ite.cantidad;
+        clone.querySelector(".quitar").dataset.id=ite.id;
+        clone.querySelector(".agregar").dataset.id=ite.id;
+
+        fragment.appendChild(clone);
+
         });
         carrito.appendChild(fragment);  
-    
 
 
-      }
 
-      const quitar=(e)=>{
-        coprasDelCarrito=coprasDelCarrito.filter(it=>{
-            if(it.id===e.target.dataset.id){
-                if(it.cantidad>0){
-                    it.cantidad--;
-                    if(it.cantidad===0)return;
-                        return it;
-                    
-                }
-            }else{return it}
-        });
-    pintarCarrito();
-    };
+  }
+
+  const quitar=(e)=>{
+   carritoDeCompras=carritoDeCompras.filter(em=>{
+        if(em.id===e.target.dataset.id){
+            if(em.cantidad>0){
+                em.cantidad--;
+                if(em.cantidad===0)return;
+                    return em;
+                
+            }
+        }else{return em}
+    });
+    pintarCarrito(e);
+};
